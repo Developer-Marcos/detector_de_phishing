@@ -1,12 +1,12 @@
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier, VotingClassifier
 from sklearn.svm import SVC
-from sklearn.model_selection import GridSearchCV
+from sklearn.model_selection import GridSearchCV, cross_val_score
 from sklearn.metrics import classification_report, accuracy_score
 import numpy as np
 
 def mostrar_resultados(y_test, prev_y, nome_modelo):
-      print(f"Acurácia ({nome_modelo}):", accuracy_score(y_test, prev_y))
+      print(f"Acurácia ({nome_modelo}): {accuracy_score(y_test, prev_y) * 100:.2f}%")
       print(f"Relatório de Classificação ({nome_modelo}):")
       print(classification_report(y_test, prev_y))
 
@@ -88,6 +88,10 @@ def voting_classifier(X_train, X_test, y_train, y_test):
       voting_clf.fit(X=X_train, y=y_train)
       prev_y = voting_clf.predict(X_test)
 
+      X_total = np.concatenate((X_train, X_test), axis=0)
+      y_total = np.concatenate((y_train, y_test), axis=0)
+
+      cv_scores = cross_val_score(voting_clf, X_total, y_total, cv=5, scoring='accuracy', n_jobs=1)
+      print(f"\nCross-validation (5 folds) - Acurácia média: {cv_scores.mean() * 100:.2f}% ± {cv_scores.std() * 100:.2f}%")
+
       mostrar_resultados(y_test=y_test, prev_y=prev_y, nome_modelo="Voting Classifier com GridSearch")
-
-
