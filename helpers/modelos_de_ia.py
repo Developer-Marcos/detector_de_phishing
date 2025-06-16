@@ -3,12 +3,40 @@ from sklearn.ensemble import RandomForestClassifier, VotingClassifier
 from sklearn.svm import SVC
 from sklearn.model_selection import GridSearchCV, cross_val_score
 from sklearn.metrics import classification_report, accuracy_score
+import seaborn as sns
 import numpy as np
+import matplotlib.pyplot as plt
 
 def mostrar_resultados(y_test, prev_y, nome_modelo):
       print(f"Acurácia ({nome_modelo}): {accuracy_score(y_test, prev_y) * 100:.2f}%")
       print(f"Relatório de Classificação ({nome_modelo}):")
       print(classification_report(y_test, prev_y))
+
+def grafico_comparativo(X_test, y_test, modelos, nomes):
+    accuracies = []
+    for modelo in modelos:
+        y_pred = modelo.predict(X_test)
+        acc = accuracy_score(y_test, y_pred)
+        accuracies.append(acc * 100)
+    
+    plt.figure(figsize=(10, 6))
+    bars = plt.bar(nomes, accuracies, color='#4A90E2', edgecolor='black', linewidth=1)
+
+   
+    max_acc = max(accuracies)
+    plt.ylim(0, max_acc + 5)  
+
+    plt.ylabel('Acurácia (%)', fontsize=12)
+    plt.title('Comparação de Acurácia dos Modelos', fontsize=14)
+    
+    
+    for i, v in enumerate(accuracies):
+        plt.text(i, v + 0.5, f"{v:.2f}%", ha='center', va='bottom', fontsize=11, color='black')
+
+    plt.grid(axis='y', linestyle='--', alpha=0.7)
+    plt.tight_layout()
+    plt.show()
+
 
 
 def decision_tree(X_train, X_test, y_train, y_test):
@@ -82,7 +110,7 @@ def voting_classifier(X_train, X_test, y_train, y_test):
                   ('svm', grid_svc.best_estimator_)
             ],
             voting='soft',
-            weights=[3, 2, 1]
+            weights=[1, 3, 1]
       )
 
       voting_clf.fit(X=X_train, y=y_train)
@@ -95,3 +123,20 @@ def voting_classifier(X_train, X_test, y_train, y_test):
       print(f"\nCross-validation (5 folds) - Acurácia média: {cv_scores.mean() * 100:.2f}% ± {cv_scores.std() * 100:.2f}%")
 
       mostrar_resultados(y_test=y_test, prev_y=prev_y, nome_modelo="Voting Classifier com GridSearch")
+
+      modelos = [
+           grid_dt.best_estimator_,
+           grid_rf.best_estimator_,
+           grid_svc.best_estimator_,
+           voting_clf
+      ]
+
+      nomes = [
+            'Decision Tree',
+            'Random Forest',
+            'SVC',
+            'Voting Classifier'
+      ]
+
+      grafico_comparativo(X_test=X_test, y_test=y_test, modelos=modelos, nomes=nomes)
+

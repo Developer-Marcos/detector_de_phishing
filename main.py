@@ -14,5 +14,3 @@ X_train, X_test, y_train, y_test = dividir_dataset(X=X, y=y)
 
 # Modelos agindo juntos por meio do Voting Classifier para o melhor resultado possivel
 voting_classifier(X_train=X_train, X_test=X_test, y_train=y_train, y_test=y_test)
-
-# Implementar: Cross-validation mais robusta
