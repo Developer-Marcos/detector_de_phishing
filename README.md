@@ -1,18 +1,54 @@
-# detector_de_phishing
-Passos para o projeto de ML com o dataset de phishing:
+### Classificador Ensemble com Voting Classifier e GridSearch
 
-0 - Carregar os dados do dataset. FEITO
+Este projeto implementa um sistema de classificação de sites de phishing que combina múltiplos modelos de machine learning usando Voting Classifier com otimização de hiperparâmetros via GridSearchCV. Além disso, o desempenho é avaliado usando validação cruzada e comparado graficamente entre os modelos.
 
-1 - Dividir os dados em conjunto de treino e teste. FEITO
+---
 
-2 - Treinar três modelos separadamente: Decision Tree, Random Forest e XGBoost. FEITO
+### Funcionalidades principais
 
-3 - Criar um modelo ensemble usando Voting Classifier com votação ponderada (soft). FEITO
+- Treinamento de 3 modelos base:
+  - Decision Tree Classifier (Árvore de Decisão)
+  - Random Forest Classifier (Floresta Aleatória)
+  - Support Vector Machine (SVM)
 
-4 - Treinar o ensemble com os dados de treino. FEITO
+- Otimização de hiperparâmetros com GridSearchCV para cada modelo, garantindo melhor performance.
 
-5 - Avaliar o desempenho do ensemble nos dados de teste. FEITO
+- Combinação dos modelos base usando Voting Classifier (votação soft), com pesos ajustáveis para cada modelo.
 
-6 - (Opcional) Visualizar a importância das features em algum dos modelos. FEITO
+- Avaliação do modelo final com:
+  - Acurácia no conjunto de teste
+  - Relatório detalhado de métricas (precision, recall, f1-score)
+  - Validação cruzada (Cross-Validation) para medir robustez e evitar overfitting
 
-7 - Preparar a apresentação dos resultados para postar no LinkedIn.
+- Visualização comparativa das acurácias dos modelos base e do ensemble por meio de gráfico de barras estilizado.
+
+---
+
+### Tecnologias utilizadas
+
+- Python 3.x
+- scikit-learn (sklearn)
+- NumPy
+- Matplotlib
+
+---
+
+### Como usar
+
+1. Clone o repositório:
+
+```bash
+git clone https://github.com/Developer-Marcos/detector_de_phishing.git
+```
+2. Entre na pasta do projeto:
+ ```bash
+cd detector_de_phishing
+```  
+4. Instale as dependências via ```pip```:
+ ```bash
+pip install -r requirements.txt
+```  
+5. Execute o script principal com Python:
+ ```bash
+python main.py
+```  
