@@ -30,6 +30,7 @@ Este projeto implementa um sistema de classificação de sites de phishing que c
 - scikit-learn (sklearn)
 - NumPy
 - Matplotlib
+- seaborn
 
 ---
 
