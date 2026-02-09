@@ -34,6 +34,26 @@ Este projeto implementa um sistema de classificação de sites de phishing que c
 
 ---
 
+### Rodando com Docker (Recomendado)
+
+![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
+
+Para facilitar o teste da aplicação sem a necessidade de configurar um ambiente Python local, você pode utilizar o Docker.
+
+###### Assim o projeto inicializa so de rodar a imagem 
+```
+Construa a imagem:
+```
+docker build -t detector-phishing .  
+```
+Execute o container:
+```
+docker run -it --rm -e PYTHONUNBUFFERED=1 detector-phishing
+```
+
+Assim o projeto roda de forma direta, sem precisar de mais nenhuma config.
+
+---
 ### Como usar
 
 1. Clone o repositório:
