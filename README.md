@@ -41,12 +41,14 @@ Este projeto implementa um sistema de classificação de sites de phishing que c
 Para facilitar o teste da aplicação sem a necessidade de configurar um ambiente Python local, você pode utilizar o Docker.
 
 ###### Assim o projeto inicializa so de rodar a imagem 
-```
 Construa a imagem:
+
 ```
 docker build -t detector-phishing .  
 ```
+
 Execute o container:
+
 ```
 docker run -it --rm -e PYTHONUNBUFFERED=1 detector-phishing
 ```
